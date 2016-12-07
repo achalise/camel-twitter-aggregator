@@ -1,0 +1,44 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.0.BUILD-SNAPSHOT'
+        camelVersion = '2.18.1'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'camel-twitter-aggregator'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.apache.camel:camel-core:${camelVersion}")
+	compile("org.apache.camel:camel-spring-boot:${camelVersion}")
+    compile("org.apache.camel:camel-stream:${camelVersion}")
+    compile("org.apache.camel:camel-twitter:${camelVersion}")
+    compile("org.apache.camel:camel-rx:${camelVersion}")
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
